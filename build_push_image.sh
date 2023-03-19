@@ -1,12 +1,12 @@
 #!/bin/bash
 # Build Docker image
-docker build -t item-app .
+docker build -t item-app:v1 .
 
 # List local images
 docker images
 
 # Rename image to match Docker Hub format
-docker tag item-app taqwimcore/item-app:v1
+docker tag item-app:v1 taqwimcore/item-app:v1
 
 # Login to Docker Hub
 echo $PASSWORD_DOCKER_HUB | docker login -u taqwimcore --password-stdin
