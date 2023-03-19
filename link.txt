@@ -1,0 +1,5 @@
+fork link:
+https://github.com/taqwimOnehub/a433-microservices.git
+
+dockerhub item-app:
+https://hub.docker.com/r/taqwimcore/item-app
