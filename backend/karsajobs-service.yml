@@ -7,6 +7,7 @@ metadata:
 spec:
   selector:
     app: karsajobs
+    tier: be
   ports:
     - name: http
       port: 8080
