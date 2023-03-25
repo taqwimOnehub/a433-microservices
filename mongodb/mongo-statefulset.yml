@@ -1,21 +1,19 @@
-#deklarasi api version v1
+# deklarasi apiVersion yang digunakan adalah apps/v1. Abstraksi tingkat tinggi seperti StatefulSet memiliki API group-nya sendiri sehingga bukan bagian dari API inti.
 apiVersion: apps/v1
-#object type "statefulset"
+# deklarasi kind yang mengindikasikan resource yang didefinisikan, yaitu StatefulSet
 kind: StatefulSet
-#deklarasi metadata name,label untuk identifikasi
 metadata:
-  name: mongo
+  name: mongo-state
   labels:
-    app : mongo
+    app: mongo
     tier: db
-#mengatur spec replika 2 
 spec:
   selector:
     matchLabels:
       app: mongo
       tier: db
-  serviceName: "mongo"
-  replicas: 2
+  serviceName: mongo
+  replicas: 1
   minReadySeconds: 10
   template:
     metadata:
@@ -26,18 +24,14 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:
       - name: mongo
-        image: mongo:latest
-        #imagePullPolicy: IfNotPresent
-        
+        image: mongo:4
         env:
         - name: MONGO_INITDB_ROOT_USERNAME_FILE
           value: /etc/mongo-credentials/MONGO_ROOT_USERNAME
         - name: MONGO_INITDB_ROOT_PASSWORD_FILE
           value: /etc/mongo-credentials/MONGO_ROOT_PASSWORD
-
         ports:
         - containerPort: 27017
-          name: mongo
         volumeMounts:
         - name: mongo-pv
           mountPath: /data/db
