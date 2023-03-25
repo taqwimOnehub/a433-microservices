@@ -1,36 +1,33 @@
-#deklarasi api version 1
+# deklarasi apiVersion v1 (versi satu) adalah versi API inti yang berisi banyak resource paling umum seperti Pod dan Node.
 apiVersion: v1
-#object type "persistent volume"
+# deklarasi kind yang mengindikasikan resource yang didefinisikan, yaitu PersistentVolume
 kind: PersistentVolume
+
+# deklarasi metadata yang berisi informasi yang relevan terkait resource dan dapat membantu dalam pengidentifikasian. Definisikan nama PersistentVolume sebagai mongo-pv-volume dan menentukan tipe volume-nya adalah local.
 metadata:
   name: mongo-pv
   labels:
     type: local
-#set spesifikasi 
+# tentukan beberapa spesifikasi, seperti nama Storage Class dengan manual, kapasitas penyimpanan 1 GB, access mode dengan read-write once, dan host path pada “/mnt/data”.
 spec:
-  StorageClassname: manual
-  #ukuran volume penyimpanan
+  storageClassName: manual
   capacity:
-    storage: 10Gi
-  #hak akses volume read-write oleh satu node
+    storage: 1Gi
   accessModes:
     - ReadWriteOnce
-  #lokasi mount volume
   hostPath:
     path: "/mnt/data"
-
+---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: mongo-pv-claim
   labels:
-    app: mongo
+    app: karsajobs-db
 spec:
   storageClassName: manual
-  # hak akses volume dapat di pasang sebagai read-write oleh satu Node
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      # ukuran penyimpanan
-      storage: 10Gi
+      storage: 1Gi
