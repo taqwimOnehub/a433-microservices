@@ -1,12 +1,18 @@
+#deklarasi api version v1
 apiVersion: v1
+#object type "service"
 kind: Service
+#set metadata nama dan label untuk proses identifikasi 
 metadata:
   name: mongo
   labels:
     app: mongo
+#set spec selector tier:db 
 spec:
   selector:
     app: mongo
+    tier: db
+#port ekspos 27017
   ports:
     - port: 27017
-  clusterIP: None
+

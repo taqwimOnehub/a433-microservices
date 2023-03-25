@@ -1,19 +1,27 @@
+#deklarasi api version v1
 apiVersion: apps/v1
+#object type "statefulset"
 kind: StatefulSet
+#deklarasi metadata name,label untuk identifikasi
 metadata:
   name: mongo
   labels:
     app : mongo
+    tier: db
+#mengatur spec replika 2 
 spec:
   serviceName: "mongo"
   replicas: 2
+  minReadySeconds: 10
   selector:
     matchLabels:
       app: mongo
+      tier: db
   template:
     metadata:
       labels:
         app: mongo
+        tier: db
     spec:
       terminationGracePeriodSeconds: 10
       containers:
@@ -42,9 +50,6 @@ spec:
       - name: mongo-configmap
         configMap:
           name: mongo-configmap
-          items:
-            - key: mongo.conf
-              path: mongo.conf
       - name: mongo-secret
         secret:
           secretName: mongo-secret

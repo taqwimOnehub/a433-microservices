@@ -1,7 +1,11 @@
+#deklarasi api version 1
 apiVersion: v1
+#objek type "configmap"
 kind: ConfigMap
+#setting metadata name to identified
 metadata:
   name: mongo-configmap
+#path database 
 data:
   mongo.conf: |
     storage:
