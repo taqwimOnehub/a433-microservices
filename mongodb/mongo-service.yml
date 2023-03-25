@@ -4,7 +4,7 @@ apiVersion: v1
 kind: Service
 #set metadata nama dan label untuk proses identifikasi 
 metadata:
-  name: mongo-service
+  name: mongo
   labels:
     app: mongo
 #set spec selector tier:db 

@@ -1,7 +1,8 @@
 # deklarasi apiVersion yang digunakan adalah apps/v1. Abstraksi tingkat tinggi seperti StatefulSet memiliki API group-nya sendiri sehingga bukan bagian dari API inti.
 apiVersion: apps/v1
-# deklarasi kind yang mengindikasikan resource yang didefinisikan, yaitu StatefulSet
+# deklarasi kind yang mengindikasikan resource yang memerlukan identitas tetap dan penyimpanan persistent yaitu StatefulSet
 kind: StatefulSet
+#set metadata nama dan label untuk proses identifikasi / konfigusi yang dilakukan pada objek
 metadata:
   name: mongo-state
   labels:
@@ -14,6 +15,7 @@ spec:
       tier: db
   serviceName: mongo
   replicas: 1
+#menentukan jumlah waktu minimum yang harus dijalankan sebelum pod dianggap siap (ready) oleh Kubernetes. set 10sec
   minReadySeconds: 10
   template:
     metadata:
@@ -21,10 +23,12 @@ spec:
         app: mongo
         tier: db
     spec:
+    #mengatur waktu penyelesaian (grace period) saat menghentikan (terminating) pod pada Kubernetes.10sec
       terminationGracePeriodSeconds: 10
       containers:
       - name: mongo
         image: mongo:4
+    #mengatur environment database port, volume, dan secret key serta path nya
         env:
         - name: MONGO_INITDB_ROOT_USERNAME_FILE
           value: /etc/mongo-credentials/MONGO_ROOT_USERNAME
@@ -41,11 +45,14 @@ spec:
           mountPath: /etc/mongo-credentials
       volumes:
       - name: mongo-pv
+      #mengatur PVC yang akan digunakan oleh pod tersebut
         persistentVolumeClaim:
           claimName: mongo-pv-claim
+      #path mengatur configmap 
       - name: mongo-configmap
         configMap:
           name: mongo-configmap
+      #path mengatur secret
       - name: mongo-secret
         secret:
           secretName: mongo-secret
