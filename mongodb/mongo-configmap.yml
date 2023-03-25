@@ -7,6 +7,6 @@ metadata:
   name: mongo-configmap
 #path database 
 data:
-  mongo.conf: |
+   config: |
     storage:
       dbPath: /data/db

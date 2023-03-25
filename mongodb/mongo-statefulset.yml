@@ -10,13 +10,13 @@ metadata:
     tier: db
 #mengatur spec replika 2 
 spec:
-  serviceName: "mongo"
-  replicas: 2
-  minReadySeconds: 10
   selector:
     matchLabels:
       app: mongo
       tier: db
+  serviceName: "mongo"
+  replicas: 2
+  minReadySeconds: 10
   template:
     metadata:
       labels:
@@ -27,24 +27,26 @@ spec:
       containers:
       - name: mongo
         image: mongo:latest
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 27017
-          name: mongo
+        #imagePullPolicy: IfNotPresent
+        
         env:
         - name: MONGO_INITDB_ROOT_USERNAME_FILE
           value: /etc/mongo-credentials/MONGO_ROOT_USERNAME
         - name: MONGO_INITDB_ROOT_PASSWORD_FILE
           value: /etc/mongo-credentials/MONGO_ROOT_PASSWORD
+
+        ports:
+        - containerPort: 27017
+          name: mongo
         volumeMounts:
-        - name: mongo-persistent-volume
+        - name: mongo-pv
           mountPath: /data/db
         - name: mongo-configmap
           mountPath: /config
         - name: mongo-secret
           mountPath: /etc/mongo-credentials
       volumes:
-      - name: mongo-persistent-volume
+      - name: mongo-pv
         persistentVolumeClaim:
           claimName: mongo-pv-claim
       - name: mongo-configmap
