@@ -1,12 +1,18 @@
+#versi API
 apiVersion: v1
+#Jenis objek service
 kind: Service
+#Konfigurasi objek
 metadata:
   name: karsajobs-ui-service
+  labels:
+    app: karsajobs-ui
 spec:
   selector:
     app: karsajobs-ui
+#setting port yang digunakan
   ports:
-    - name: http
-      port: 80
-      targetPort: 3000
+    - port: 8000
+      #targetPort: 3000
+#type port yang digunakan
   type: NodePort

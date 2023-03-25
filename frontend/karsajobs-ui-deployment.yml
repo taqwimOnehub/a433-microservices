@@ -1,9 +1,17 @@
+#Api version yang digunakan
 apiVersion: apps/v1
+#jenis objek set  deployment
 kind: Deployment
+#data objek
 metadata:
   name: karsajobs-ui-deployment
+  labels: 
+    app: karsajobs-ui
+#spesifikasi/konfigurasi
 spec:
+#set untuk membuat 2 replika
   replicas: 2
+#seleksi pod sesuai label
   selector:
     matchLabels:
       app: karsajobs-ui
@@ -11,9 +19,15 @@ spec:
     metadata:
       labels:
         app: karsajobs-ui
+    # spesifikasi container yang dibuat
     spec:
       containers:
         - name: karsajobs-ui
-          image: my-frontend-image:v1
+        #image hasil build dockerfile frontend
+          image: ghcr.io/taqwimonehub/karsajobs-ui:latest
+          imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 3000
+            - containerPort: 8000
+            env:
+          - name: VUE_APP_BACKEND
+            value: http://192.168.49.2:31797
