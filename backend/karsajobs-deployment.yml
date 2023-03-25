@@ -23,7 +23,7 @@ spec:
         - name: APP_PORT
           value: "8080"
         - name: MONGO_HOST
-          value: mongo
+          value: $(MONGO_SERVICE_HOST)
         - name: MONGO_USER
           valueFrom:
             secretKeyRef:
