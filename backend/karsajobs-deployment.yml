@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: karsajobs
-        image: your-karsajobs-image
+        image: ghcr.io/taqwimonehub/karsajobs:latest
         ports:
         - containerPort: 8080
         env:
@@ -32,3 +32,4 @@ spec:
             secretKeyRef:
               name: mongo-secret
               key: MONGO_ROOT_PASSWORD
+     
