@@ -1,14 +1,21 @@
+
+# deklarasi apiVersion v1 
 apiVersion: v1
+# deklarasi kind "service" 
 kind: Service
+
+# deklarasi metadata yang berisi informasi yang relevan object
 metadata:
   name: karsajobs
   labels:
     app: karsajobs
+# deklarasi spec yang berisi spesifikasi port
 spec:
-  selector:
-    app: karsajobs
-    tier: be
   ports:
-    - name: http
-      port: 8080
+# ekspos port 8080 
+  - port: 8080
+  selector:
+# menggunakan selector tier: be 
+    tier: be
+# menggunakan tipe NodePort untuk membuat Service
   type: NodePort

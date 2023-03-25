@@ -8,7 +8,6 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: karsajobs
       tier: be
   replicas: 1
   template:
