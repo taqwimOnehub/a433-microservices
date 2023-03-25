@@ -5,29 +5,26 @@ kind: Deployment
 #data objek
 metadata:
   name: karsajobs-ui-deployment
-  labels: 
+  labels:
     app: karsajobs-ui
-#spesifikasi/konfigurasi
+    tier: fe
+# deklarasi spec yang berisi spesifikasi resources.
 spec:
-#set untuk membuat 2 replika
+# menyesuaikan jumlahnya 2 pod
   replicas: 2
-#seleksi pod sesuai label
   selector:
     matchLabels:
       app: karsajobs-ui
+      tier: fe
+# Pod template (spesifikasi Pod)
   template:
+# Definisikan label Deployment dengan karsajobs-ui.
     metadata:
       labels:
         app: karsajobs-ui
-    # spesifikasi container yang dibuat
+        tier: fe
+# spesifikasi container karsajobs-ui yang ada dalam Pod
     spec:
       containers:
-        - name: karsajobs-ui
-        #image hasil build dockerfile frontend
-          image: ghcr.io/taqwimonehub/karsajobs-ui:latest
-          imagePullPolicy: IfNotPresent
-          ports:
-            - containerPort: 8000
-            env:
-          - name: VUE_APP_BACKEND
-            value: http://192.168.49.2:31797
+      - name: karsajobs-ui
+        image: ghcr.io/taqwimonehub/karsajobs-ui:latest

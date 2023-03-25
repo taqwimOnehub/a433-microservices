@@ -7,12 +7,13 @@ metadata:
   name: karsajobs-ui-service
   labels:
     app: karsajobs-ui
+# deklarasi spec
 spec:
-  selector:
-    app: karsajobs-ui
-#setting port yang digunakan
   ports:
-    - port: 8000
-      #targetPort: 3000
-#type port yang digunakan
+#setting port yang digunakan
+  - port: 8000
+  selector:
+# menggunakan selector tier: fe 
+    tier: fe
+# menggunakan tipe NodePort untuk membuat Service
   type: NodePort
