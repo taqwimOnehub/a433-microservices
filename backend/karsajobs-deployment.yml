@@ -1,5 +1,8 @@
+# deklarasi apiVersion v1 
 apiVersion: apps/v1
+# deklarasi kind objek "deployment"
 kind: Deployment
+#set metadata nama dan label untuk proses identifikasi / konfigusi yang dilakukan pada objek
 metadata:
   name: karsajobs-backend
   labels: 
@@ -9,6 +12,7 @@ spec:
   selector:
     matchLabels:
       tier: be
+#set replikasi pods satu kali
   replicas: 1
   template:
     metadata:
@@ -16,16 +20,18 @@ spec:
         app: karsajobs
         tier: be
     spec:
+  #set images dari github package hasil build backend dockerfile
       containers:
       - name: karsajobs
         image: ghcr.io/taqwimonehub/karsajobs:latest
         ports:
         - containerPort: 8080
+  #set env untuk menghubungkan dengan database
         env:
         - name: APP_PORT
           value: "8080"
         - name: MONGO_HOST
-          value: $(MONGO_SERVICE_HOST)
+          value: "mongo"
         - name: MONGO_USER
           valueFrom:
             secretKeyRef:
