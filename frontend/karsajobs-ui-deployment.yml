@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 #jenis objek set  deployment
 kind: Deployment
-#data objek
+#set metadata nama dan label untuk proses identifikasi / konfigusi yang dilakukan pada objek
 metadata:
   name: karsajobs-ui-deployment
   labels:
@@ -22,7 +22,7 @@ spec:
       labels:
         app: karsajobs-ui
         tier: fe
-# spesifikasi container karsajobs-ui yang ada dalam Pod
+# spesifikasi container karsajobs-ui hasil build image
     spec:
       containers:
       - name: karsajobs-ui
